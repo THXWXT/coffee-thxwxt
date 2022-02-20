@@ -1,0 +1,66 @@
+<head>
+  <link rel="stylesheet" href="coffeeshop.component.css" />
+</head>
+
+<h1>THX CoffeeShop</h1>
+<form [formGroup]="shopform">
+  <div class="inputinfo" style="border: 1px solid black ;margin: 10px ;">
+  <div style="margin: 10px;">
+
+    Name :<br/> <input type="text" formControlName="name" [(ngModel)]="order.name"  >
+    <span style="color: red" *ngIf="shopform.get('name')?.errors?.['required']">*required</span>
+  </div>
+  <div style="margin: 10px;">
+    Email :<br/> <input type="email" formControlName="email" [(ngModel)]="order.email" >
+    <span style="color: red" *ngIf="shopform.get('email')?.errors?.['email']">*Email is valid</span>
+    <span style="color: red" *ngIf="shopform.get('email')?.errors?.['required']">*required</span>
+
+  </div>
+  <div style="margin: 10px;">
+    Phone : <br/><input type="tel" formControlName="phone" [(ngModel)]="order.phone" >
+    <span style="color: red" *ngIf="shopform.get('phone')?.errors?.['required']">*required</span>
+    <span style="color: red" *ngIf="shopform.get('phone')?.errors?.['minlenght']">*required</span>
+    <span style="color: red" *ngIf="shopform.get('phone')?.errors?.['maxlenght']">*required</span>
+    <span style="color: red" *ngIf="shopform.get('phone')?.errors?.['pattern']">*Format is valid</span>
+
+  </div>
+
+  <select name="" id="" class="form-select mb-3" formControlName="drink" style="margin: 10px;">
+    <option value="null">What Would your drink ?</option>
+    <option *ngFor="let menu of drink" [ngValue]="menu.name">
+      {{ menu.name }}
+    </option>
+  </select>
+
+  <p>Hot or Cold ?
+    <span style="color: red" *ngIf="shopform.get('tempPreference')?.errors?.['required']"> *required</span>
+</p>
+<div class="form-check">
+    <input class="form-check-input" type="radio" value="hot" name="flexRadioDefault" id="flexRadioDefault1" formControlName="tempPrefer" />
+    <label class="form-check-label"> Hot </label>
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="radio" value="cold" name="flexRadioDefault" id="flexRadioDefault2" formControlName="tempPrefer" />
+    <label class="form-check-label"> Cold </label>
+</div>
+<div class="form-check mb-3">
+  <input class="form-check-input" type="checkbox" value="true" formControlName="sendText" />
+  <label class="form-check-label">
+Send me a text message when my order is ready.
+</label>
+</div>
+<button type="button" class="btn btn-success" (click)="isshow=true">Place Order</button>
+</div>
+</form>
+<p><b>Order Confirmation </b><br/>
+  <h4><p><b>Your order will show here when you press » Place order «</b><br/></h4>
+<div *ngIf="isshow">
+
+    <p>{{ shopform.value | json }}</p>
+    <h5 style="color: #ff0000">
+      Date Submitted : {{ myDate | date: "dd/MM/yyyy เวลา HH:mm น." }}
+    </h5>
+
+</div>
+
+
